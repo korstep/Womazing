@@ -40,7 +40,7 @@ class Product(models.Model):
 
 
 class Color(models.Model):
-    color_image = models.ImageField(upload_to='color_images/', null=True, default=None)
+    color_image = models.ImageField(upload_to='colors/', null=True, default=None)
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, null=True, blank=True)
 
@@ -72,7 +72,7 @@ class ProductColorImage(models.Model):
 
 
 class ProductImage(models.Model):
-    image = models.ImageField(upload_to='product_images/')
+    image = models.ImageField(upload_to='products/')
 
     def __str__(self):
         return self.image.url
