@@ -22,10 +22,10 @@ class GetProductsSerializer(serializers.ModelSerializer):
         fields = (
             'name',
             'price',
-            'old_price',
-            'color_slug',
-            'product_slug',
-            'image_url',
+            'oldPrice',
+            'colorSlug',
+            'productSlug',
+            'imageUrl',
         )
 
 
