@@ -19,3 +19,9 @@ def products_on_sale():
     products = ProductColorImage.objects.select_related('product', 'color')
     products = products.filter(Q(product_id__in=Subquery(product_ids)) & Q(color_id__in=Subquery(color_ids)))
     return products
+
+
+def similar_products(product_id, category_id):
+    products = products_on_sale().exclude(product__id=product_id)
+    products = products.filter(product__category_id=category_id)
+    return products
