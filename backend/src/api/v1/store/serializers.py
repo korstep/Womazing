@@ -5,13 +5,13 @@ from apps.store.models import ProductColorImage, ProductSizeColor, Category
 class GetProductsSerializer(serializers.ModelSerializer):
     name = serializers.CharField(source='product.name')
     price = serializers.IntegerField(source='product.price')
-    old_price = serializers.IntegerField(source='product.old_price')
-    color_slug = serializers.CharField(source='color.slug')
-    product_slug = serializers.CharField(source='product.slug')
-    image_url = serializers.SerializerMethodField()
+    oldPrice = serializers.IntegerField(source='product.old_price')
+    colorSlug = serializers.CharField(source='color.slug')
+    productSlug = serializers.CharField(source='product.slug')
+    image = serializers.SerializerMethodField()
 
     @staticmethod
-    def get_image_url(obj):
+    def get_image(obj):
         product_image = obj.image.first()  # Assuming image is a related manager
         if product_image:
             return product_image.image.url
@@ -25,11 +25,14 @@ class GetProductsSerializer(serializers.ModelSerializer):
             'oldPrice',
             'colorSlug',
             'productSlug',
-            'imageUrl',
+            'image',
         )
 
 
 class GetCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = '__all__'
+        fields = (
+            'name',
+            'slug'
+            )
