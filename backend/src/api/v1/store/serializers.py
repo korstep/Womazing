@@ -4,10 +4,10 @@ from apps.store.models import ProductColorImage, ProductSizeColor, Category
 
 class GetProductsSerializer(serializers.ModelSerializer):
     name = serializers.CharField(source='product.name')
+    productSlug = serializers.CharField(source='product.slug')
     price = serializers.IntegerField(source='product.price')
     oldPrice = serializers.IntegerField(source='product.old_price')
     colorSlug = serializers.CharField(source='color.slug')
-    productSlug = serializers.CharField(source='product.slug')
     image = serializers.SerializerMethodField()
 
     @staticmethod
