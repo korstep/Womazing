@@ -1,0 +1,69 @@
+@mixin custom-text-styles(
+  $font-size: 17px,
+  $font-weight: 500,
+  $line-height: 140%,
+  $letter-spacing: 0.02em,
+  $color: #000000
+) {
+  letter-spacing: $letter-spacing;
+  font-size: $font-size;
+  font-weight: $font-weight;
+  line-height: $line-height;
+  color: $color;
+}
+
+@mixin text {
+  letter-spacing: 0.02em;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 140%;
+  color: #000000;
+}
+
+@mixin text-small {
+  letter-spacing: 0.02em;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 140%;
+  color: #000000;
+}
+
+@mixin text-large {
+  letter-spacing: 0.02em;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 140%;
+  color: #000000;
+}
+
+@mixin heading-h1 {
+  letter-spacing: 0.02em;
+  font-size: 55px;
+  font-weight: 500;
+  line-height: 140%;
+  color: #000000;
+}
+
+@mixin heading-h2 {
+  letter-spacing: 0.02em;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 110%;
+  color: #000000;
+}
+
+@mixin heading-h3 {
+  letter-spacing: 0.02em;
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 140%;
+  color: #000000;
+}
+
+@mixin heading-h4 {
+  letter-spacing: 0.02em;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 140%;
+  color: #000000;
+}

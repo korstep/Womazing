@@ -1,0 +1,24 @@
+@mixin button-filled {
+  @include text;
+  padding: 22px 50px;
+  background: #6E9C9F;
+  color: #ffffff;
+  transition: background-color 0.5s ease;
+
+  &:hover {
+    background: #509498;
+  }
+}
+
+@mixin button-outlined {
+  @include text;
+  padding: 22px 50px;
+  border: 1px solid #6E9C9F;
+  color: #6E9C9F;
+  transition: background-color 0.5s ease;
+
+  &:hover {
+    background-color: #6E9C9F;
+    color: #ffffff;
+  }
+}
