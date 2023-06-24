@@ -8,6 +8,8 @@
             class="team__slider"
             :slides-per-view="1"
             :loop="true"
+            :modules="modules"
+            :pagination="pagination"
             @swiper="onSwiper"
           >
             <swiper-slide class="team__item">
@@ -31,6 +33,18 @@
                 alt=""
               />
             </swiper-slide>
+            <img
+              @click="swiper.slidePrev()"
+              class="team__arrow team__arrow-prev"
+              src="@/assets/media/icons/arrow-r.svg"
+              alt=""
+            />
+            <img
+              @click="swiper.slideNext()"
+              class="team__arrow"
+              src="@/assets/media/icons/arrow-r.svg"
+              alt=""
+            />
           </swiper>
           <div class="team__text">
             <h3 class="team__subtitle">Для каждой</h3>
@@ -42,9 +56,7 @@
               выгодно подчеркивают достоинства каждой девушки.
             </span>
             <span>
-              <a href="{% url 'about' %}" class="team__link"
-                >Подробнее о бренде</a
-              >
+              <a href="#" class="team__link">Подробнее о бренде</a>
             </span>
           </div>
         </div>
@@ -54,6 +66,7 @@
 </template>
 <script>
 import { Swiper, SwiperSlide } from "swiper/vue"
+import { Pagination } from "swiper"
 import "swiper/css"
 export default {
   data() {
@@ -70,23 +83,17 @@ export default {
       this.swiper = swiper
     },
   },
-  // setup() {
-  //   return {
-  //     pagination: {
-  //       clickable: true,
-  //       renderBullet: function (index, className) {
-  //         return (
-  //           '<span class="top-slider__bullet ' +
-  //           className +
-  //           '">0' +
-  //           (index + 1) +
-  //           "</span>"
-  //         )
-  //       },
-  //     },
-  //     modules: [Pagination],
-  //   }
-  // },
+  setup() {
+    return {
+      pagination: {
+        clickable: true,
+        renderBullet: function (index, className) {
+          return '<span class="team__bullet ' + className + '">' + "</span>"
+        },
+      },
+      modules: [Pagination],
+    }
+  },
 }
 </script>
 <style lang="scss">
@@ -104,6 +111,7 @@ export default {
     column-gap: 120px;
   }
   &__slider {
+    position: relative;
   }
   &__item {
   }
@@ -123,6 +131,38 @@ export default {
   }
   &__link {
     color: #6e9c9f;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
+  &__arrow {
+    cursor: pointer;
+    position: absolute;
+    bottom: 45%;
+    right: 5px;
+    z-index: 1;
+  }
+  &__arrow-prev {
+    left: 5px;
+    transform: rotate(-180deg);
+  }
+  &__bullet {
+    height: 4px;
+    width: 30px;
+    background: rgba(255, 255, 255, 0.36);
+  }
+}
+.swiper-pagination {
+  width: 100%;
+  position: absolute;
+  bottom: 60px;
+  display: flex;
+  justify-content: center;
+  column-gap: 10px;
+  z-index: 1;
+}
+.swiper-pagination-bullet-active {
+  background: #fff;
 }
 </style>
