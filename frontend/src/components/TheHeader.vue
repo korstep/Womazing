@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header :class="{ 'header_not-fixed': !showPhoneAndCartIcon }" class="header">
     <div class="container">
       <div class="header__body">
         <div class="header__brand">
@@ -19,6 +19,7 @@
         <div class="header__contacts">
           <div class="header__phone-items">
             <svg
+              v-show="showPhoneAndCartIcon"
               class="phone-icon"
               width="15"
               height="15"
@@ -37,7 +38,7 @@
             </svg>
             <span class="phone-number">+7 (495) 823-54-12</span>
           </div>
-          <a class="cart-icon" href="#">
+          <a v-show="showPhoneAndCartIcon" class="cart-icon" href="#">
             <img
               src="@/assets/media/icons/cart.svg"
               alt=""
@@ -62,6 +63,7 @@ export default {
 </script>
 <style lang="scss">
 .header {
+  background-color: rgba(255, 255, 255, 1);
   z-index: 4;
   position: fixed;
   top: 0;
@@ -138,5 +140,12 @@ export default {
 .phone-number {
   @include text-small;
   white-space: nowrap;
+}
+.header_not-fixed {
+  background-color: rgba(255, 255, 255, 0);
+  position: inherit;
+  .header__body {
+    height: auto;
+  }
 }
 </style>
