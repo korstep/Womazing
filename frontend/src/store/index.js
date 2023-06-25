@@ -11,11 +11,13 @@ export default createStore({
     },
   },
   state: {
-    backendBaseUrl: "http://127.0.0.1:8000/api/",
+    backendBaseUrl: "http://127.0.0.1:8000",
+    backendApiUrl: "http://127.0.0.1:8000/api/",
     categories: null,
   },
   getters: {
-    getBackendUrl: (state) => state.backendBaseUrl,
+    getBackendBaseUrl: (state) => state.backendBaseUrl,
+    getBackendUrl: (state) => state.backendApiUrl,
     getCategories: (state) => state.categories,
   },
   mutations: {
