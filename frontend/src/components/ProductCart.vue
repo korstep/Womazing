@@ -48,7 +48,6 @@ export default {
   row-gap: 25px;
   &__image {
     position: relative;
-    height: 480px;
     cursor: pointer;
     &:hover {
       .product-cart__image-hover {
@@ -58,7 +57,7 @@ export default {
   }
 
   &__image-img {
-    height: 100%;
+    height: 480px;
     width: 100%;
     object-fit: cover;
   }
