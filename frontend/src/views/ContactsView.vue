@@ -1,5 +1,10 @@
 <template>
-  <div class="contacts">contacts</div>
+  <the-contacts />
 </template>
-<script></script>
+<script>
+import TheContacts from "@/components/TheContacts.vue"
+export default {
+  components: { TheContacts },
+}
+</script>
 <style lang="scss"></style>
