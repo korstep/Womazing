@@ -8,13 +8,23 @@
             alt=""
             class="header__brand-logo"
           />
-          <a href="#" class="header__brand-name">WOMAZING</a>
+          <router-link :to="{ name: 'home' }" class="header__brand-name"
+            >WOMAZING</router-link
+          >
         </div>
         <nav class="navbar">
-          <a href="#" class="navbar__element">Главная</a>
-          <a href="#" class="navbar__element">Магазин</a>
-          <a href="#" class="navbar__element">О бренде</a>
-          <a href="#" class="navbar__element">Контакты</a>
+          <router-link :to="{ name: 'home' }" class="navbar__element"
+            >Главная</router-link
+          >
+          <router-link :to="{ name: 'store' }" class="navbar__element"
+            >Магазин</router-link
+          >
+          <router-link :to="{ name: 'about' }" class="navbar__element"
+            >О бренде</router-link
+          >
+          <router-link :to="{ name: 'contacts' }" class="navbar__element"
+            >Контакты</router-link
+          >
         </nav>
         <div class="header__contacts">
           <div class="header__phone-items">

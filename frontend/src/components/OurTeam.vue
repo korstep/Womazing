@@ -2,7 +2,7 @@
   <div class="team">
     <div class="container">
       <div class="team__body">
-        <h2 class="team__title">Команда мечты Womazing</h2>
+        <h2 class="paragraph team__title">Команда мечты Womazing</h2>
         <div class="team__content">
           <swiper
             class="team__slider"
@@ -56,7 +56,9 @@
               выгодно подчеркивают достоинства каждой девушки.
             </span>
             <span>
-              <a href="#" class="team__link">Подробнее о бренде</a>
+              <router-link :to="{ name: 'about' }" class="team__link"
+                >Подробнее о бренде</router-link
+              >
             </span>
           </div>
         </div>

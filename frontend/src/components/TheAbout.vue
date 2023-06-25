@@ -52,7 +52,9 @@
             <img src="@/assets/media/images/about2.png" alt="" />
           </div>
         </div>
-        <a href="#" class="about__btn">Перейти в магазин</a>
+        <router-link :to="{ name: 'store' }" class="about__btn"
+          >Перейти в магазин</router-link
+        >
       </div>
     </div>
   </div>
