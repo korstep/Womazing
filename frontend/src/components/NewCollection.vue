@@ -3,7 +3,7 @@
     <div class="container">
       <div class="novelty__body">
         <h2 class="novelty__title">Новая коллекция</h2>
-        <section class="products">
+        <section v-if="products" class="products">
           <product-cart
             v-for="product in products"
             :key="product.productSlug"
@@ -34,11 +34,10 @@ export default {
       products: null,
     }
   },
-  mounted() {
+  mounted: function () {
     this.getProducts().then((response) => {
       this.products = response.data
     })
-    console.log(this.products)
   },
   computed: {
     ...mapGetters(["getBackendUrl"]),
