@@ -21,12 +21,23 @@ const routes = [
     path: "/store",
     name: "store",
     component: () => import("../views/StoreView.vue"),
+    children: [
+      {
+        path: ":category", // Удалите `/store/` перед `:category`
+        name: "category",
+        component: () => import("../views/StoreView.vue"),
+      },
+    ],
   },
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+  pathToRegexpOptions: {
+    // Добавлено свойство pathToRegexpOptions
+    strict: true,
+  },
 })
 
 export default router
