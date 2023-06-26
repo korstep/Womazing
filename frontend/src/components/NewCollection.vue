@@ -67,7 +67,6 @@ export default {
 .products {
   width: 100%;
   display: flex;
-  justify-content: space-between;
   column-gap: 30px;
   margin-bottom: 65px;
 }
