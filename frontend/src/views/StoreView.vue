@@ -1,25 +1,19 @@
 <template>
   <ProductCategories />
-  <ProductsCatalog />
+  <ProductsSorting />
+  <ProductsCatalog v-if="getCategories" />
 </template>
 <script>
 import ProductCategories from "@/components/ProductsCategories.vue"
 import ProductsCatalog from "@/components/ProductsCatalog.vue"
-import { mapActions, mapGetters } from "vuex"
+import ProductsSorting from "@/components/ProductsSorting.vue"
+import { mapGetters } from "vuex"
 export default {
-  components: { ProductCategories, ProductsCatalog },
+  components: { ProductCategories, ProductsCatalog, ProductsSorting },
   computed: {
-    ...mapGetters(["getCatalog"]),
+    ...mapGetters(["getCategories"]),
   },
-  mounted: async function () {
-    console.log("hello")
-    if (!this.getCatalog) {
-      await this.createCatalog()
-    }
-  },
-  methods: {
-    ...mapActions(["createCatalog"]),
-  },
+  methods: {},
 }
 </script>
 <style lang="scss"></style>
