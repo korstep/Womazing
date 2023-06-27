@@ -18,8 +18,13 @@
             </div>
           </div>
           <div class="footer__categories">
-            <div v-for="category in getCategories" :key="category.slug">
-              <a href="#" class="footer__category">{{ category.name }}</a>
+            <div v-for="catg in getCategories" :key="catg.slug">
+              <router-link
+                @click="changeCategory(catg.slug)"
+                :to="{ name: 'category', params: { category: catg.slug } }"
+                class="footer__category"
+                >{{ catg.name }}</router-link
+              >
             </div>
           </div>
         </div>
@@ -58,16 +63,21 @@
   </footer>
 </template>
 <script>
-import { mapGetters } from "vuex"
+import { mapActions, mapGetters } from "vuex"
 
 import TheHeader from "./TheHeader.vue"
 export default {
   components: {
     TheHeader,
   },
-  created() {},
   computed: {
     ...mapGetters(["getBackendUrl", "getCategories"]),
+  },
+  methods: {
+    ...mapActions(["createCatalogCategory"]),
+    changeCategory(category) {
+      this.createCatalogCategory({ category: category, sortBy: "" })
+    },
   },
 }
 </script>
