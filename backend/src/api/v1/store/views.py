@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from apps.store.models import ProductColorImage, ProductSizeColor, Category
-from .serializers import GetProductsSerializer, GetCategorySerializer
+from .serializers import *
 from django.db.models import F
 from .utils import *
 from rest_framework import status
@@ -30,16 +30,16 @@ def get_product(request, product_slug, color_slug):
     p = ProductSizeColor.objects.select_related('product', 'color', 'size')
 
     pci = products_on_sale()
-    colors = p.filter(product__slug=product_slug).values(name=F('color__name'),
-                                                         slug=F('color__slug'),
-                                                         imageUrl=F('color__color_image')).distinct('color__id')
+    colors = p.filter(product__slug=product_slug).distinct('color__id')
+    colors = GetColorFromProductSizeColor(colors,many=True).data
 
     p = p.filter(product__slug=product_slug, color__slug=color_slug)
 
     if not p.exists():
         return create_error_404('Product not found')
 
-    images = pci.filter(product=p.first().product, color=p.first().color).values_list('image__image', flat=True)
+    images = pci.filter(product=p.first().product, color=p.first().color)
+    images = GetProductColorImageSerializer(images, many=True).data
     sizes_data = {size['size__size']: size['quantity'] for size in p.values('size__size', 'quantity')}
     firs_element_p = p[0]
 
@@ -49,8 +49,8 @@ def get_product(request, product_slug, color_slug):
         'price': firs_element_p.product.price,
         'oldPrice': firs_element_p.product.old_price,
         'selectedColorSlug': firs_element_p.color.slug,
+        'images': unpacking_images(images),
         'colors': colors,
-        'images': images,
         'sizes': sizes_data,
         'similar': GetProductsSerializer(
             similar_products(firs_element_p.product.pk, firs_element_p.product.category.pk), many=True).data

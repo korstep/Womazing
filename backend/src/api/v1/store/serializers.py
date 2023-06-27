@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.store.models import ProductColorImage, ProductSizeColor, Category
+from apps.store.models import ProductColorImage, ProductSizeColor, Category, ProductImage
 
 
 class GetProductsSerializer(serializers.ModelSerializer):
@@ -36,3 +36,30 @@ class GetCategorySerializer(serializers.ModelSerializer):
             'name',
             'slug'
             )
+
+
+class GetProductColorImageSerializer(serializers.ModelSerializer):
+    images = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ProductColorImage
+        fields = ('images',)
+
+    def get_images(self, obj):
+        return [image.image.url for image in obj.image.all()]
+
+
+class GetColorFromProductSizeColor(serializers.ModelSerializer):
+    name = serializers.CharField(source='color.name')
+    slug = serializers.CharField(source='color.slug')
+    image = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ProductSizeColor
+        fields = ('name', 'slug', 'image')
+
+    def get_image(self, obj):
+        color_image = obj.color.color_image
+        if color_image:
+            return color_image.url
+        return None
