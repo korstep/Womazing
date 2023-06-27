@@ -33,18 +33,28 @@ export default createStore({
         return
       }
     },
+    async createProductDetail({ commit, getters }, context) {
+      const detail = await axios
+        .get(
+          `${getters.getBackendUrl}v1/products/${context.productSlug}/${context.colorSlug}/`
+        )
+        .then((response) => response.data)
+      commit("setProductDetail", detail)
+    },
   },
   state: {
     backendBaseUrl: "http://127.0.0.1:8000",
     backendApiUrl: "http://127.0.0.1:8000/api/",
     categories: null,
     catalog: null,
+    productDetail: null,
   },
   getters: {
     getBackendBaseUrl: (state) => state.backendBaseUrl,
     getBackendUrl: (state) => state.backendApiUrl,
     getCategories: (state) => state.categories,
     getCatalog: (state) => state.catalog,
+    getProductDetail: (state) => state.productDetail,
   },
   mutations: {
     setCategories(state, categories) {
@@ -52,6 +62,9 @@ export default createStore({
     },
     setCatalog(state, catalog) {
       state.catalog = catalog
+    },
+    setProductDetail(state, productDetail) {
+      state.productDetail = productDetail
     },
   },
   modules: {},
