@@ -23,11 +23,16 @@ const routes = [
     component: () => import("../views/StoreView.vue"),
     children: [
       {
-        path: ":category", // Удалите `/store/` перед `:category`
+        path: ":category",
         name: "category",
         component: () => import("../views/StoreView.vue"),
       },
     ],
+  },
+  {
+    path: "/:productSlug/:colorSlug",
+    name: "product",
+    component: () => import("../views/ProductView.vue"),
   },
 ]
 
@@ -35,7 +40,6 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
   pathToRegexpOptions: {
-    // Добавлено свойство pathToRegexpOptions
     strict: true,
   },
 })
