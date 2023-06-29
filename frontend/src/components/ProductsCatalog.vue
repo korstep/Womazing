@@ -8,6 +8,8 @@
             :key="index"
             :name="product.name"
             :price="product.price"
+            :productSlug="product.productSlug"
+            :colorSlug="product.colorSlug"
             :oldPrice="product.oldPrice"
             :imagePath="product.image"
           />
@@ -27,6 +29,7 @@ export default {
     return {}
   },
   mounted: async function () {
+    console.log("mount")
     if (!this.getCatalog) {
       if (this.$route.name == "store") {
         await this.createCatalog()
