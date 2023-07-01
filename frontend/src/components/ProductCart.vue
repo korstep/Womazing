@@ -1,13 +1,20 @@
 <template>
   <div class="product-cart">
-    <div class="product-cart__image">
+    <div @click="redirectToProductPage()" class="product-cart__image">
       <img class="product-cart__image-img" :src="getImageUrl()" alt="" />
       <div class="product-cart__image-hover">
         <img src="@/assets/media/icons/arrow-r_white.svg" alt="" />
       </div>
     </div>
     <div class="product-cart__text">
-      <span class="product-cart__name">{{ name }}</span>
+      <router-link
+        :to="{
+          name: 'product',
+          params: { productSlug: productSlug, colorSlug: colorSlug },
+        }"
+        class="product-cart__name"
+        >{{ name }}</router-link
+      >
       <div class="product-cart__prices">
         <span v-if="oldPrice" class="product-cart__old-price"
           >${{ oldPrice }}</span
@@ -25,8 +32,8 @@ export default {
     name: { type: String, required: true },
     price: { type: Number, required: true },
     oldPrice: { type: Number, required: false, default: null },
-    // productSlug: { type: String, required: true },
-    // colorSlug: { type: String, required: true },
+    productSlug: { type: String, required: true },
+    colorSlug: { type: String, required: true },
     imagePath: { type: String, required: true },
   },
   computed: {
@@ -35,6 +42,12 @@ export default {
   methods: {
     getImageUrl() {
       return `${this.getBackendBaseUrl}${this.imagePath}`
+    },
+    redirectToProductPage() {
+      this.$router.push({
+        name: "product",
+        params: { productSlug: this.productSlug, colorSlug: this.colorSlug },
+      })
     },
   },
 }
