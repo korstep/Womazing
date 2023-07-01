@@ -9,8 +9,6 @@
             :key="product.productSlug"
             :name="product.name"
             :price="product.price"
-            :productSlug="product.productSlug"
-            :colorSlug="product.colorSlug"
             :oldPrice="product.oldPrice"
             :imagePath="product.image"
           />
