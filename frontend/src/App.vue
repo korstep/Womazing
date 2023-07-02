@@ -26,7 +26,7 @@ export default {
   computed: {
     ...mapGetters(["getCategories"]),
     shouldShowComponent() {
-      return this.$route.name !== "home"
+      return this.$route.name !== "home" && this.$route.name !== "not-found"
     },
   },
   created: async function () {
