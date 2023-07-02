@@ -93,10 +93,7 @@ export default {
             colorSlug: color,
           },
         })
-        await this.createProductDetail({
-          productSlug: this.$route.params.productSlug,
-          colorSlug: color,
-        })
+
         this.selectedSize = null
       }
     },

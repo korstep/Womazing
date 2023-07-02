@@ -1,10 +1,10 @@
 <template>
   <div class="catalog">
     <div class="container">
-      <div v-if="catalog" class="catalog__body">
-        <section v-if="catalog" class="products">
+      <div v-if="getCatalog" class="catalog__body">
+        <section v-if="getCatalog" class="products">
           <product-cart
-            v-for="(product, index) in catalog"
+            v-for="(product, index) in getCatalog"
             :key="index"
             :name="product.name"
             :price="product.price"
@@ -29,27 +29,29 @@ export default {
     return {}
   },
   mounted: async function () {
-    if (!this.getCatalog) {
+    await this.manageCatalog()
+  },
+  computed: {
+    ...mapGetters(["getCatalog"]),
+  },
+
+  methods: {
+    ...mapActions(["createCatalogCategory", "createCatalog"]),
+    async manageCatalog() {
       if (this.$route.name == "store") {
         await this.createCatalog()
-        console.log("nema")
-      } else if (this.$route.name == "category") {
+      } else {
         await this.createCatalogCategory({
           category: this.$route.params.category,
           sortBy: "",
         })
       }
-    }
-  },
-  computed: {
-    ...mapGetters(["getCatalog"]),
-    catalog() {
-      return this.getCatalog
     },
   },
-
-  methods: {
-    ...mapActions(["createCatalogCategory", "createCatalog"]),
+  watch: {
+    "$route.params.category": async function () {
+      this.manageCatalog()
+    },
   },
 }
 </script>
