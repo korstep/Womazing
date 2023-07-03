@@ -154,17 +154,17 @@ export default {
     width: 30px;
     background: rgba(255, 255, 255, 0.36);
   }
-}
-.swiper-pagination {
-  width: 100%;
-  position: absolute;
-  bottom: 60px;
-  display: flex;
-  justify-content: center;
-  column-gap: 10px;
-  z-index: 1;
-}
-.swiper-pagination-bullet-active {
-  background: #fff;
+  .swiper-pagination {
+    width: 100%;
+    position: absolute;
+    bottom: 60px;
+    display: flex;
+    justify-content: center;
+    column-gap: 10px;
+    z-index: 1;
+  }
+  .swiper-pagination-bullet-active {
+    background: #fff;
+  }
 }
 </style>
