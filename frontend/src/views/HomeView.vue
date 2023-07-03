@@ -1,10 +1,12 @@
 <template>
+  <TheRepose />
   <NewCollection />
   <OurBenefits />
   <OurTeam />
 </template>
 
 <script>
+import TheRepose from "@/components/TheRepose.vue"
 import OurBenefits from "@/components/OurBenefits.vue"
 import OurTeam from "@/components/OurTeam.vue"
 import NewCollection from "@/components/NewCollection.vue"
@@ -14,6 +16,7 @@ export default {
     OurBenefits,
     OurTeam,
     NewCollection,
+    TheRepose,
   },
 }
 </script>
