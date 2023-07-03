@@ -6,12 +6,16 @@
         <form @submit.prevent="submitForm" class="writeus__form">
           <div class="writeus__group">
             <input
+              @input="this.nameError = false"
               type="text"
               v-model="name"
               class="writeus__input"
               placeholder="Имя"
               required
             />
+            <span v-if="nameError" class="writeus__error"
+              >* Только буквы и не более 16 символов</span
+            >
           </div>
 
           <div class="writeus__group">
@@ -26,11 +30,15 @@
 
           <div class="writeus__group">
             <input
+              @input="this.phoneError = false"
               type="tel"
               v-model="phone"
               class="writeus__input"
               placeholder="Телефон"
             />
+            <span v-if="nameError" class="writeus__error"
+              >* Неккоректный ввод номера телефона
+            </span>
           </div>
 
           <div class="writeus__group writeus__group_wide">
@@ -64,6 +72,8 @@
 export default {
   data() {
     return {
+      nameError: false,
+      phoneError: false,
       isSubmit: false,
       name: "",
       email: "",
@@ -78,7 +88,25 @@ export default {
   },
   methods: {
     submitForm() {
-      
+      const regexPhone = /^(?:\+38)?[0-9]{9}$/
+      const regexname = /^[a-zA-Z]{1,16}$/
+      if (!regexname.test(this.name)) {
+        this.nameError = true
+      }
+      if (this.phone && !regexPhone.test(this.phone)) {
+        this.phoneError = true
+      }
+      if (!this.phoneError && !this.nameError) {
+        console.log(this.name, this.email, this.phone, this.message)
+        this.resetForm()
+        this.isSubmit = true
+      }
+    },
+    resetForm() {
+      this.name = ""
+      this.email = ""
+      this.phone = ""
+      this.message = ""
     },
   },
   watch: {
@@ -92,10 +120,7 @@ export default {
 </script>
 
 <style lang="scss">
-/* Стили для формы */
 .writeus {
-  /* Стили для контейнера формы */
-
   &__body {
     display: flex;
     flex-direction: column;
@@ -154,6 +179,10 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  &__error {
+    @include text-small;
+    color: #9c3030;
   }
 }
 </style>
