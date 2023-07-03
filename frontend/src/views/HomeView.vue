@@ -1,6 +1,6 @@
 <template>
   <TheRepose />
-  <NewCollection />
+  <NewCollection id="new-colections" />
   <OurBenefits />
   <OurTeam />
 </template>
