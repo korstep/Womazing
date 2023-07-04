@@ -13,11 +13,12 @@ class Cart(object):
         cart = self.session.get(settings.CART_SESSION_ID)
 
         if not cart:
-            # сохраняем ПУСТУЮ корзину в сессии
             cart = self.session[settings.CART_SESSION_ID] = {}
         self.cart = cart
         self.update_supply()
 
+    def get_cart(self):
+        return self.cart
     def update_supply(self):
         print(self.cart)
         if len(self.cart) != 0:
@@ -77,12 +78,13 @@ class Cart(object):
 
             supply = int(matching_products.quantity)
             self.cart[key] = {
-                'key': key,
+                'productId': matching_products.product.id,
+                'colorId': matching_products.color.id,
                 'name': matching_products.product.name,
                 'color': matching_products.color.name,
                 'size': matching_products.size.size,
                 'price': matching_products.product.price,
-                'quantity_ordered': 1,
+                'quantityOrdered': 1,
                 'supply': supply,
                 'image': product_image
             }

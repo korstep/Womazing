@@ -28,6 +28,8 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+CART_SESSION_ID = 'cart'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
