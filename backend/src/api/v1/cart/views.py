@@ -7,7 +7,20 @@ from .utils import *
 @api_view(['GET'])
 def get_cart(request):
     cart = Cart(request)
-    return Response(cart.get_cart())
+    response = {'cart': cart.get_cart()}
+    if len(cart) != 0:
+        response['totalPrice'] = cart.get_total_price()
+    return Response(response)
+
+
+@api_view(['DELETE'])
+def clear_cart(request):
+    cart = Cart(request)
+    try:
+        cart.clear()
+        return Response({'success': 'Cart cleared successfully'}, status=200, content_type='application/json')
+    except Exception as e:
+        return Response({'error': str(e)}, status=500, content_type='application/json')
 
 
 @api_view(['PUT'])
@@ -29,3 +42,42 @@ def add_product(request):
     except Exception as e:
         error_message = 'An error occurred while adding the product'
         return Response({'error': error_message}, status=500, content_type='application/json')
+
+
+@api_view(['POST'])
+def increase_product(request, key):
+    cart = Cart(request)
+    try:
+        cart.increase(key)
+        return Response({'success': 'Product quantity increased successfully'}, status=200,
+                        content_type='application/json')
+    except ValueError as e:
+        return Response({'error': str(e)}, status=400, content_type='application/json')
+    except Exception as e:
+        return Response({'error': str(e)}, status=500, content_type='application/json')
+
+
+@api_view(['POST'])
+def reduce_product(request, key):
+    cart = Cart(request)
+    try:
+        cart.reduce(key)
+        return Response({'success': 'Product quantity increased successfully'}, status=200,
+                        content_type='application/json')
+    except ValueError as e:
+        return Response({'error': str(e)}, status=400, content_type='application/json')
+    except Exception as e:
+        return Response({'error': str(e)}, status=500, content_type='application/json')
+
+
+@api_view(['DELETE'])
+def remove_product(request, key):
+    cart = Cart(request)
+    try:
+        cart.remove(key)
+        return Response({'success': 'Product quantity increased successfully'}, status=200,
+                        content_type='application/json')
+    except ValueError as e:
+        return Response({'error': str(e)}, status=400, content_type='application/json')
+    except Exception as e:
+        return Response({'error': str(e)}, status=500, content_type='application/json')
