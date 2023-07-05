@@ -20,13 +20,18 @@
               >${{ this.getProductDetail.oldPrice }}</span
             >
           </div>
-          <div class="detail__options">
-            <span class="detail__text">Выберите размер</span>
+          <div id="sizes" class="detail__options">
+            <span
+              :class="{ detail__text_red: this.sizeError }"
+              class="detail__text"
+              >Выберите размер</span
+            >
             <span
               class="detail__size"
               :class="{
                 detail__size_selected: isSelectedSize(size),
                 detail__size_disabled: isQuantityZero(quantity),
+                detail__size_red: this.sizeError && !isQuantityZero(quantity),
               }"
               v-for="[size, quantity] in Object.entries(
                 this.getProductDetail.sizes
@@ -52,39 +57,99 @@
               />
             </div>
           </div>
-          <button class="detail__btn">Добавить в корзину</button>
+          <button
+            v-if="this.isCurrentProductInCart"
+            @click="this.$router.push({ name: 'cart' })"
+            type="button"
+            class="detail__btn detail__btn_gray"
+          >
+            Уже в корзине
+          </button>
+          <button
+            v-else
+            @click="addToCartHandler()"
+            type="button"
+            class="detail__btn"
+          >
+            Добавить в корзину
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex"
+import { mapActions, mapGetters, mapMutations } from "vuex"
 import { Swiper, SwiperSlide } from "swiper/vue"
-// import router from "@/router"
 
 export default {
   data() {
     return {
+      isCurrentProductInCart: null,
       selectedSize: null,
+      sizeError: false,
     }
   },
   components: {
     Swiper,
     SwiperSlide,
   },
+  created() {},
   computed: {
-    ...mapGetters(["getProductDetail", "getBackendBaseUrl"]),
+    ...mapGetters(["getProductDetail", "getBackendBaseUrl", "getCart"]),
     getCurrentColor() {
       return this.$route.params.colorSlug
+    },
+    getProductSlug() {
+      return this.$route.params.productSlug
+    },
+    createProductContext() {
+      return {
+        productSlug: this.getProductSlug,
+        colorSlug: this.getCurrentColor,
+        size: this.selectedSize,
+        quantity: 1,
+      }
     },
   },
   methods: {
     ...mapActions(["createProductDetail"]),
+    ...mapMutations(["addToCart"]),
+    isProductInCart({ productSlug, colorSlug, size }) {
+      return this.getCart.some((item) => {
+        return (
+          item.productSlug === productSlug &&
+          item.colorSlug === colorSlug &&
+          item.size === size
+        )
+      })
+    },
+
+    addToCartHandler() {
+      if (!this.selectedSize) {
+        const sizesElement = document.getElementById("sizes")
+        if (sizesElement) {
+          const windowHeight = window.innerHeight
+          const elementHeight = sizesElement.clientHeight
+          const offsetTop = sizesElement.offsetTop
+
+          const scrollToOffset =
+            offsetTop - windowHeight / 2 + elementHeight / 2
+          window.scrollTo({ top: scrollToOffset, behavior: "smooth" })
+        }
+        this.sizeError = true
+        return
+      }
+      const productContext = this.createProductContext
+      this.addToCart(productContext)
+      this.isCurrentProductInCart = this.isProductInCart(
+        this.createProductContext
+      )
+    },
     isQuantityZero(quantity) {
       return quantity === 0
     },
-    async selectColor(color) {
+    selectColor(color) {
       if (!this.isSelectedColor(color)) {
         this.$router.push({
           name: "product",
@@ -93,8 +158,6 @@ export default {
             colorSlug: color,
           },
         })
-
-        this.selectedSize = null
       }
     },
     isSelectedColor(color) {
@@ -105,6 +168,7 @@ export default {
     },
     selectSize(size, quantity) {
       if (!this.isQuantityZero(quantity)) {
+        this.sizeError = false
         this.selectedSize = size
       }
     },
@@ -114,8 +178,32 @@ export default {
     getImageUrl(imagePath) {
       return `${this.getBackendBaseUrl}${imagePath}`
     },
-    currentColor() {
-      return this.$route.params.colorSlug
+  },
+  watch: {
+    "$route.params": {
+      handler: function (newParams, oldParams) {
+        const newProductSlug = newParams.productSlug
+        const newColorSlug = newParams.colorSlug
+        const oldProductSlug = oldParams.productSlug
+        const oldColorSlug = oldParams.colorSlug
+
+        if (
+          newProductSlug !== oldProductSlug ||
+          newColorSlug !== oldColorSlug
+        ) {
+          this.selectedSize = null
+          this.sizeError = false
+          this.isCurrentProductInCart = this.isProductInCart(
+            this.createProductContext
+          )
+        }
+      },
+      deep: true,
+    },
+    selectedSize() {
+      this.isCurrentProductInCart = this.isProductInCart(
+        this.createProductContext
+      )
     },
   },
 }
@@ -167,6 +255,9 @@ export default {
     @include heading-h4;
     width: 100%;
   }
+  &__text_red {
+    color: #9c3030;
+  }
   &__size {
     @include text;
     padding: 10px 15px;
@@ -183,6 +274,9 @@ export default {
     color: #9c9c9c;
     cursor: default;
   }
+  &__size_red {
+    border-color: #9c3030;
+  }
   &__color {
   }
   &__color-image {
@@ -198,6 +292,10 @@ export default {
   }
   &__btn {
     @include button-filled;
+  }
+  &__btn_gray {
+    @include button-filled;
+    background-color: #9c9c9c;
   }
 }
 </style>
