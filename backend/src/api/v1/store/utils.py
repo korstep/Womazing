@@ -57,3 +57,8 @@ def unpacking_images(data):
         for image in img['images']:
             result.append(image)
     return result
+
+def get_product_on_size(product_slug, color_slug, size):
+    p = ProductSizeColor.objects.select_related('product', 'color', 'size')
+    p = p.filter(product__slug=product_slug, color__slug=color_slug, size__size=size.upper())
+    return p

@@ -28,7 +28,6 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-CART_SESSION_ID = 'cart'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -38,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.store.apps.StoreConfig',
-    'apps.cart.apps.CartConfig',
     'rest_framework',
     'corsheaders',
 ]

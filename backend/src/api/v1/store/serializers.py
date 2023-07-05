@@ -50,16 +50,37 @@ class GetProductColorImageSerializer(serializers.ModelSerializer):
 
 
 class GetColorFromProductSizeColor(serializers.ModelSerializer):
+    id = serializers.IntegerField(source='color.id')
     name = serializers.CharField(source='color.name')
     slug = serializers.CharField(source='color.slug')
     image = serializers.SerializerMethodField()
 
     class Meta:
         model = ProductSizeColor
-        fields = ('name', 'slug', 'image')
+        fields = ('id', 'name', 'slug', 'image')
 
     def get_image(self, obj):
         color_image = obj.color.color_image
         if color_image:
             return color_image.url
         return None
+
+
+class GetProductOnSizeSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(source='product.name')
+    size = serializers.CharField(source='size.size')
+    productSlug = serializers.CharField(source='product.slug')
+    price = serializers.IntegerField(source='product.price')
+    oldPrice = serializers.IntegerField(source='product.old_price')
+    colorSlug = serializers.CharField(source='color.slug')
+
+    class Meta:
+        model = ProductSizeColor
+        fields = (
+            'name',
+            'size',
+            'price',
+            'oldPrice',
+            'colorSlug',
+            'productSlug',
+        )

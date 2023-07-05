@@ -56,3 +56,30 @@ def get_product(request, product_slug, color_slug):
             similar_products(firs_element_p.product.pk, firs_element_p.product.category.pk), many=True).data
     }
     return Response(response_data)
+
+@api_view(['GET'])
+def get_product_on_size(request, product_slug, color_slug, size):
+    p = ProductSizeColor.objects.select_related('product', 'color', 'size')
+    p = p.filter(product__slug=product_slug, color__slug=color_slug, size__size=size.upper())
+    if not p.exists():
+        return create_error_404('Product not found')
+    pci = products_on_sale()
+    images = pci.filter(product=p.first().product, color=p.first().color)
+    images = unpacking_images(GetProductColorImageSerializer(images, many=True).data)
+    response = {
+        **GetProductOnSizeSerializer(p, many=True).data[0],
+        'images': images[0],
+        }
+    return Response(response)
+
+
+@api_view(['GET'])
+def get_supply(request, product_slug, color_slug, size):
+    p = ProductSizeColor.objects.select_related('product', 'color', 'size')
+    p = p.filter(product__slug=product_slug, color__slug=color_slug, size__size=size.upper())
+    if not p.exists():
+        return create_error_404('Product not found')
+    response ={
+        'supply': p.first().quantity
+    }
+    return Response(response)
