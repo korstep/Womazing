@@ -1,5 +1,17 @@
-<template><div></div></template>
+<template>
+  <CartItems v-if="getCart" />
+  <CartEmpty v-else />
+</template>
 <script>
-export default {}
+import { mapGetters } from "vuex"
+import CartItems from "@/components/CartItems"
+import CartEmpty from "@/components/CartEmpty"
+export default {
+  components: { CartItems, CartEmpty },
+  computed: {
+    ...mapGetters(["getCart"]),
+  },
+  methods: {},
+}
 </script>
 <style lang="scss"></style>

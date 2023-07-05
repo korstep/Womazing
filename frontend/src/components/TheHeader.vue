@@ -48,13 +48,17 @@
             </svg>
             <span class="phone-number">+7 (495) 823-54-12</span>
           </div>
-          <a v-show="showPhoneAndCartIcon" class="cart-icon" href="#">
+          <router-link
+            v-show="showPhoneAndCartIcon"
+            class="cart-icon"
+            :to="{ name: 'cart' }"
+          >
             <img
               src="@/assets/media/icons/cart.svg"
               alt=""
               class="cart-icon__icon"
             />
-          </a>
+          </router-link>
         </div>
       </div>
     </div>

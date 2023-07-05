@@ -2,6 +2,7 @@ import { createStore } from "vuex"
 import categories from "./modules/categories.js"
 import catalog from "./modules/catalog"
 import productDetail from "./modules/productDetail"
+import cart from "./modules/cart.js"
 
 const store = createStore({
   actions: {},
@@ -18,6 +19,7 @@ const store = createStore({
     categories,
     catalog,
     productDetail,
+    cart,
   },
 })
 export default store

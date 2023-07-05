@@ -11,7 +11,6 @@ export default {
 
   actions: {
     async createCategories({ commit, getters }) {
-      console.log("here")
       const categories = await axios
         .get(`${getters.getBackendUrl}v1/categories/`)
         .then((response) => response.data)
