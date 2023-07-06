@@ -73,6 +73,7 @@ class GetProductOnSizeSerializer(serializers.ModelSerializer):
     price = serializers.IntegerField(source='product.price')
     oldPrice = serializers.IntegerField(source='product.old_price')
     colorSlug = serializers.CharField(source='color.slug')
+    supply =serializers.IntegerField(source='quantity')
 
     class Meta:
         model = ProductSizeColor
@@ -83,4 +84,5 @@ class GetProductOnSizeSerializer(serializers.ModelSerializer):
             'oldPrice',
             'colorSlug',
             'productSlug',
+            'supply'
         )

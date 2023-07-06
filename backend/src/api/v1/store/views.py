@@ -68,7 +68,7 @@ def get_product_on_size(request, product_slug, color_slug, size):
     images = unpacking_images(GetProductColorImageSerializer(images, many=True).data)
     response = {
         **GetProductOnSizeSerializer(p, many=True).data[0],
-        'images': images[0],
+        'image': images[0],
         }
     return Response(response)
 
