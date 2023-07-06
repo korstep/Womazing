@@ -1,24 +1,48 @@
+import axios from "axios"
 export default {
-  actions: {},
+  actions: {
+    async addItemToCart({ getters, commit }, context) {
+      const { productSlug, colorSlug, size } = context
+      const response = await axios
+        .get(
+          `${
+            getters.getBackendUrl
+          }v1/products/${productSlug}/${colorSlug}/${size.toUpperCase()}/`
+        )
+        .then((response) => response.data)
+
+      commit("addToCart", response)
+    },
+  },
   state: {
     cart: [],
+    total: 0,
   },
   getters: {
     getCart: (state) => state.cart,
   },
   mutations: {
+    setTotal(state) {
+      state.total = state.cart.reduce(
+        (accumulator, current) =>
+          accumulator + current.price * current.quantity,
+        0
+      )
+    },
     removeProduct(state, context) {
-      state.cart = this.getters.getCart.filter((item) => {
+      const index = state.cart.findIndex((item) => {
         return (
-          item.productSlug !== context.productSlug &&
-          item.colorSlug !== context.colorSlug &&
-          item.size !== context.size
+          item.productSlug === context.productSlug &&
+          item.colorSlug === context.colorSlug &&
+          item.size === context.size
         )
       })
+      if (index !== -1) {
+        state.cart.splice(index, 1)
+      }
     },
-
     increaseQuantity(state, context) {
-      const product = this.getters.getCart.find((item) => {
+      const product = state.cart.find((item) => {
         return (
           item.productSlug === context.productSlug &&
           item.colorSlug === context.colorSlug &&
@@ -30,7 +54,7 @@ export default {
       }
     },
     reduceQuantity(state, context) {
-      const product = this.getters.getCart.find((item) => {
+      const product = state.cart.find((item) => {
         return (
           item.productSlug === context.productSlug &&
           item.colorSlug === context.colorSlug &&
@@ -44,9 +68,10 @@ export default {
     createCart(state, cart) {
       state.cart = cart
     },
-    addToCart(state, productContext) {
-      if (productContext) {
-        state.cart.push(productContext)
+    addToCart(state, data) {
+      if (data) {
+        data.quantity = 1
+        state.cart.push(data)
       }
     },
   },

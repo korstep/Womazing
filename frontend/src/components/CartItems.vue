@@ -8,14 +8,13 @@
           <div class="amount">Количество</div>
           <div class="total">Всего</div>
         </div>
-        <CartItem
-          v-for="(item, index) in getCart"
-          :key="index"
-          :productSlug="item.productSlug"
-          :colorSlug="item.colorSlug"
-          :size="item.size"
-          :quantity="item.quantity"
-        />
+        <div class="cart__items">
+          <CartItem
+            v-for="(item, index) in getCart"
+            :key="index"
+            :item="item"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -34,6 +33,12 @@ export default {
 </script>
 <style lang="scss">
 .cart {
+  &__items {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+  }
   &__columns {
     @include heading-h4;
     display: flex;

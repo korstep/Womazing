@@ -14,9 +14,10 @@
             :src="getImageUrl(this.item.image)"
             alt=""
           />
-          <div class="cart-item__name-size">
+          <div class="cart-item__name-color-size">
             <span class="cart-item__name">{{ item.name }}</span>
-            <span class="cart-item__size">{{ item.size }}</span>
+            <span class="cart-item__color">Цвет: {{ item.color }}</span>
+            <span class="cart-item__size">Размер: {{ item.size }}</span>
           </div>
         </div>
         <div class="prices">
@@ -26,17 +27,17 @@
           <img
             @click="reduceQuantityHandler()"
             class="cart-item__reduce"
-            :class="{ 'cart-item__reduce_disabled': this.quantity === 1 }"
+            :class="{ 'cart-item__reduce_disabled': this.item.quantity === 1 }"
             src="@/assets/media/icons/reduce.svg"
             alt="-"
           />
-          <span class="cart-item__quantity">{{ quantity }}</span>
+          <span class="cart-item__quantity">{{ item.quantity }}</span>
 
           <img
             @click="increaseQuantityHandler()"
             class="cart-item__increase"
             :class="{
-              'cart-item__reduce_disabled': this.quantity === item.supply,
+              'cart-item__reduce_disabled': this.item.quantity === item.supply,
             }"
             src="@/assets/media/icons/increase.svg"
             alt="+"
@@ -49,29 +50,19 @@
 </template>
 <script>
 import { mapGetters, mapMutations } from "vuex"
-import axios from "axios"
 export default {
   data() {
-    return {
-      item: null,
-    }
+    return {}
   },
   props: {
-    productSlug: { type: String, requered: true },
-    colorSlug: { type: String, requered: true },
-    size: { type: String, requered: true },
-    quantity: { type: Number, requered: true },
+    item: { type: Object, requered: true },
   },
-  mounted: function () {
-    this.getCartItem(this.productSlug, this.colorSlug, this.size).then(
-      (item) => (this.item = item)
-    )
-  },
+  mounted: function () {},
   computed: {
     ...mapGetters(["getBackendBaseUrl"]),
     ...mapGetters(["getBackendUrl"]),
     computeTotalPrice() {
-      return this.item.price * this.quantity
+      return this.item.price * this.item.quantity
     },
     getProductContext() {
       return {
@@ -88,41 +79,22 @@ export default {
     },
 
     reduceQuantityHandler() {
-      if (this.quantity === 1) {
+      if (this.item.quantity === 1) {
         return
       }
       this.reduceQuantity(this.getProductContext)
     },
     increaseQuantityHandler() {
-      if (this.quantity >= this.item.supply) {
+      if (this.item.quantity >= this.item.supply) {
         return
       }
       this.increaseQuantity(this.getProductContext)
-    },
-    // async getSupply(productSlug, colorSlug, size) {
-    //   const response = axios
-    //     .get(
-    //       `${
-    //         this.getBackendUrl
-    //       }v1/products/${productSlug}/${colorSlug}/${size.toUpperCase()}/supply/`
-    //     )
-    //     .then((response) => response.data)
-    //   return response
-    // },
-    async getCartItem(productSlug, colorSlug, size) {
-      const response = axios
-        .get(
-          `${
-            this.getBackendUrl
-          }v1/products/${productSlug}/${colorSlug}/${size.toUpperCase()}/`
-        )
-        .then((response) => response.data)
-      return response
     },
     getImageUrl(imagePath) {
       return `${this.getBackendBaseUrl}${imagePath}`
     },
   },
+  watch: {},
 }
 </script>
 <style lang="scss">
@@ -132,6 +104,7 @@ export default {
     max-height: 180px;
   }
   .product {
+    padding-right: 20px;
     display: flex;
     align-items: center;
     column-gap: 30px;
@@ -144,10 +117,10 @@ export default {
     height: 100%;
     object-fit: cover;
   }
-  &__name-size {
+  &__name-color-size {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     row-gap: 10px;
   }
   &__name {
@@ -155,6 +128,11 @@ export default {
   }
   &__size {
     @include text-small;
+    color: #9c9c9c;
+  }
+  &__color {
+    @include text-small;
+    color: #9c9c9c;
   }
   .prices {
     display: flex;

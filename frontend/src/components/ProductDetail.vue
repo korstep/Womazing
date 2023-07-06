@@ -79,7 +79,7 @@
   </div>
 </template>
 <script>
-import { mapActions, mapGetters, mapMutations } from "vuex"
+import { mapActions, mapGetters } from "vuex"
 import { Swiper, SwiperSlide } from "swiper/vue"
 
 export default {
@@ -113,8 +113,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["createProductDetail"]),
-    ...mapMutations(["addToCart"]),
+    ...mapActions(["createProductDetail", "addItemToCart"]),
     isProductInCart({ productSlug, colorSlug, size }) {
       return this.getCart.some((item) => {
         return (
@@ -125,7 +124,7 @@ export default {
       })
     },
 
-    addToCartHandler() {
+    async addToCartHandler() {
       if (!this.selectedSize) {
         const sizesElement = document.getElementById("sizes")
         if (sizesElement) {
@@ -141,7 +140,7 @@ export default {
         return
       }
       const productContext = this.createProductContext
-      this.addToCart(productContext)
+      await this.addItemToCart(productContext)
       this.isCurrentProductInCart = this.isProductInCart(
         this.createProductContext
       )

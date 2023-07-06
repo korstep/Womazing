@@ -3,7 +3,7 @@
   <CartEmpty v-else />
 </template>
 <script>
-import { mapGetters } from "vuex"
+import { mapGetters, mapMutations } from "vuex"
 import CartItems from "@/components/CartItems"
 import CartEmpty from "@/components/CartEmpty"
 export default {
@@ -11,7 +11,18 @@ export default {
   computed: {
     ...mapGetters(["getCart"]),
   },
-  methods: {},
+  methods: {
+    ...mapMutations(["setTotal"]),
+  },
+  watch: {
+    getCart: {
+      handler() {
+        console.log("here")
+        this.setTotal()
+      },
+      deep: true,
+    },
+  },
 }
 </script>
 <style lang="scss"></style>
