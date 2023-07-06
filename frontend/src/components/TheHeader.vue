@@ -29,7 +29,8 @@
         <div class="header__contacts">
           <div class="header__phone-items">
             <svg
-              v-show="showPhoneAndCartIcon"
+              v-if="showPhoneAndCartIcon"
+              @click="toggleShowCallback"
               class="phone-icon"
               width="15"
               height="15"
@@ -65,6 +66,8 @@
   </header>
 </template>
 <script>
+import { mapMutations } from "vuex"
+
 export default {
   props: {
     showPhoneAndCartIcon: {
@@ -72,6 +75,9 @@ export default {
       required: false,
       default: true,
     },
+  },
+  methods: {
+    ...mapMutations(["toggleShowCallback"]),
   },
 }
 </script>

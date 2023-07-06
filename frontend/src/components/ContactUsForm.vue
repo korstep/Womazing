@@ -3,119 +3,31 @@
     <div class="container">
       <div class="writeus__body">
         <h3 class="writeus__title">Напишите нам</h3>
-        <form @submit.prevent="submitForm" class="writeus__form">
-          <div class="writeus__group">
-            <input
-              @input="this.nameError = false"
-              type="text"
-              v-model="name"
-              class="writeus__input"
-              placeholder="Имя"
-              required
-            />
-            <span v-if="nameError" class="writeus__error"
-              >* Только буквы и не более 16 символов</span
-            >
-          </div>
-
-          <div class="writeus__group">
-            <input
-              type="email"
-              v-model="email"
-              class="writeus__input"
-              placeholder="E-mail"
-              required
-            />
-          </div>
-
-          <div class="writeus__group">
-            <input
-              @input="this.phoneError = false"
-              type="tel"
-              v-model="phone"
-              class="writeus__input"
-              placeholder="Телефон"
-            />
-            <span v-if="nameError" class="writeus__error"
-              >* Неккоректный ввод номера телефона
-            </span>
-          </div>
-
-          <div class="writeus__group writeus__group_wide">
-            <textarea
-              v-model="message"
-              class="writeus__input writeus__input_vertical-resize"
-              placeholder="Сообщение"
-              rows="5"
-            ></textarea>
-            <span
-              v-if="messageLength"
-              class="writeus__input-length"
-              :class="{
-                'writeus__input-length_warning': messageLength === 500,
-              }"
-              >{{ messageLength }}/500</span
-            >
-          </div>
-
-          <button type="submit" class="writeus__button">Отправить</button>
-        </form>
-        <div v-if="isSubmit" class="writeus__success">
-          Сообщение успешно отправлено
-        </div>
+        <TheForm
+          :showName="true"
+          :showEmail="true"
+          :showPhone="true"
+          :showMessage="true"
+        >
+          <template v-slot:buttonText>Отправить</template>
+        </TheForm>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import TheForm from "./TheForm.vue"
 export default {
+  components: {
+    TheForm,
+  },
   data() {
-    return {
-      nameError: false,
-      phoneError: false,
-      isSubmit: false,
-      name: "",
-      email: "",
-      phone: "",
-      message: "",
-    }
+    return {}
   },
-  computed: {
-    messageLength() {
-      return this.message.length
-    },
-  },
-  methods: {
-    submitForm() {
-      const regexPhone = /^(?:\+38)?[0-9]{9}$/
-      const regexname = /^[a-zA-Z]{1,16}$/
-      if (!regexname.test(this.name)) {
-        this.nameError = true
-      }
-      if (this.phone && !regexPhone.test(this.phone)) {
-        this.phoneError = true
-      }
-      if (!this.phoneError && !this.nameError) {
-        console.log(this.name, this.email, this.phone, this.message)
-        this.resetForm()
-        this.isSubmit = true
-      }
-    },
-    resetForm() {
-      this.name = ""
-      this.email = ""
-      this.phone = ""
-      this.message = ""
-    },
-  },
-  watch: {
-    message(newValue) {
-      if (newValue.length > 500) {
-        this.message = newValue.slice(0, 500)
-      }
-    },
-  },
+  computed: {},
+  methods: {},
+  watch: {},
 }
 </script>
 

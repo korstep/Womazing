@@ -1,4 +1,5 @@
 <template>
+  <TheModal v-if="getShowCallback"> <ModalCallback /></TheModal>
   <div class="wrapper">
     <the-header />
     <main class="main">
@@ -15,6 +16,8 @@ import { mapActions, mapGetters, mapMutations } from "vuex"
 import TheHeader from "@/components/TheHeader.vue"
 import TheFooter from "@/components/TheFooter.vue"
 import BreadCrumbs from "@/components/BreadCrumbs.vue"
+import TheModal from "@/components/TheModal.vue"
+import ModalCallback from "@/components/ModalCallback.vue"
 
 export default {
   name: "App",
@@ -22,9 +25,11 @@ export default {
     TheHeader,
     TheFooter,
     BreadCrumbs,
+    TheModal,
+    ModalCallback,
   },
   computed: {
-    ...mapGetters(["getCategories", "getCart"]),
+    ...mapGetters(["getCategories", "getCart", "getShowCallback"]),
     shouldShowComponent() {
       return this.$route.name !== "home" && this.$route.name !== "not-found"
     },
@@ -36,7 +41,7 @@ export default {
 
   methods: {
     ...mapActions(["createCategories"]),
-    ...mapMutations(["createCart"]),
+    ...mapMutations(["createCart", "setTotal"]),
     createCartMethod() {
       if (localStorage.getItem("cart")) {
         const cartData = JSON.parse(localStorage.getItem("cart"))
@@ -50,6 +55,7 @@ export default {
     getCart: {
       handler(newCartData) {
         localStorage.setItem("cart", JSON.stringify(newCartData))
+        this.setTotal()
       },
       deep: true,
     },
