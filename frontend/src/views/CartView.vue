@@ -1,5 +1,5 @@
 <template>
-  <CartItems v-if="getCart" />
+  <CartItems v-if="getCart.length" />
   <CartEmpty v-else />
 </template>
 <script>

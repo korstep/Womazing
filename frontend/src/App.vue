@@ -31,6 +31,7 @@ export default {
   },
   created: async function () {
     await this.createCategories()
+    await this.createCartMethod()
   },
 
   methods: {
