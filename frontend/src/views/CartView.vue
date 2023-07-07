@@ -1,13 +1,19 @@
 <template>
-  <CartItems v-if="getCart.length" />
-  <CartEmpty v-else />
+  <template v-if="!getCart.length">
+    <CartEmpty />
+  </template>
+  <template v-if="getCart.length">
+    <CartItems />
+    <CartTotal />
+  </template>
 </template>
 <script>
 import { mapGetters, mapMutations } from "vuex"
 import CartItems from "@/components/CartItems"
 import CartEmpty from "@/components/CartEmpty"
+import CartTotal from "@/components/CartTotal.vue"
 export default {
-  components: { CartItems, CartEmpty },
+  components: { CartItems, CartEmpty, CartTotal },
   computed: {
     ...mapGetters(["getCart"]),
   },
@@ -17,7 +23,6 @@ export default {
   watch: {
     getCart: {
       handler() {
-        console.log("here")
         this.setTotal()
       },
       deep: true,
