@@ -19,7 +19,17 @@ export default {
     total: 0,
   },
   getters: {
+    getTotal: (state) => state.total,
     getCart: (state) => state.cart,
+    isItemInCart: (state) => (context) => {
+      return state.cart.some((item) => {
+        return (
+          item.productSlug === context.productSlug &&
+          item.colorSlug === context.colorSlug &&
+          item.size === context.size
+        )
+      })
+    },
   },
   mutations: {
     setTotal(state) {

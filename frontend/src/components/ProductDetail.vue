@@ -85,7 +85,7 @@ import { Swiper, SwiperSlide } from "swiper/vue"
 export default {
   data() {
     return {
-      isCurrentProductInCart: null,
+      isCurrentProductInCart: false,
       selectedSize: null,
       sizeError: false,
     }
@@ -114,15 +114,6 @@ export default {
   },
   methods: {
     ...mapActions(["createProductDetail", "addItemToCart"]),
-    isProductInCart({ productSlug, colorSlug, size }) {
-      return this.getCart.some((item) => {
-        return (
-          item.productSlug === productSlug &&
-          item.colorSlug === colorSlug &&
-          item.size === size
-        )
-      })
-    },
 
     async addToCartHandler() {
       if (!this.selectedSize) {
@@ -141,7 +132,7 @@ export default {
       }
       const productContext = this.createProductContext
       await this.addItemToCart(productContext)
-      this.isCurrentProductInCart = this.isProductInCart(
+      this.isCurrentProductInCart = this.$store.getters.isItemInCart(
         this.createProductContext
       )
     },
@@ -192,7 +183,7 @@ export default {
         ) {
           this.selectedSize = null
           this.sizeError = false
-          this.isCurrentProductInCart = this.isProductInCart(
+          this.isCurrentProductInCart = this.$store.getters.isItemInCart(
             this.createProductContext
           )
         }
@@ -200,7 +191,7 @@ export default {
       deep: true,
     },
     selectedSize() {
-      this.isCurrentProductInCart = this.isProductInCart(
+      this.isCurrentProductInCart = this.$store.getters.isItemInCart(
         this.createProductContext
       )
     },

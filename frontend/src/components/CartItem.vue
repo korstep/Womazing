@@ -1,7 +1,7 @@
 <template>
-  <div class="cart-item">
+  <div v-if="item" class="cart-item">
     <div class="container">
-      <div v-if="item" class="cart-item__body">
+      <div class="cart-item__body">
         <div class="product">
           <img
             @click="removeProductHandler()"
@@ -27,7 +27,9 @@
           <img
             @click="reduceQuantityHandler()"
             class="cart-item__reduce"
-            :class="{ 'cart-item__reduce_disabled': this.item.quantity === 1 }"
+            :class="{
+              'cart-item__reduce_disabled': this.item.quantity === 1,
+            }"
             src="@/assets/media/icons/reduce.svg"
             alt="-"
           />
@@ -55,12 +57,11 @@ export default {
     return {}
   },
   props: {
-    item: { type: Object, requered: true },
+    item: { type: Object, requered: false },
   },
-  mounted: function () {},
+  mounted() {},
   computed: {
-    ...mapGetters(["getBackendBaseUrl"]),
-    ...mapGetters(["getBackendUrl"]),
+    ...mapGetters(["getBackendBaseUrl", "getBackendUrl"]),
     computeTotalPrice() {
       return this.item.price * this.item.quantity
     },
@@ -75,7 +76,9 @@ export default {
   methods: {
     ...mapMutations(["increaseQuantity", "reduceQuantity", "removeProduct"]),
     removeProductHandler() {
-      this.removeProduct(this.getProductContext)
+      if (this.$store.getters.isItemInCart(this.getProductContext)) {
+        this.removeProduct(this.getProductContext)
+      }
     },
 
     reduceQuantityHandler() {

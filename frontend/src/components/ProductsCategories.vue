@@ -31,7 +31,6 @@ export default {
   computed: {
     ...mapGetters(["getCategories"]),
     isCategoryPage() {
-      console.log("gg")
       return this.$router.name !== "store" && !this.$route.params.category
     },
   },
