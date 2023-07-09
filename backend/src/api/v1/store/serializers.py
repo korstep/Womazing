@@ -5,6 +5,8 @@ from apps.store.models import ProductColorImage, ProductSizeColor, Category, Pro
 class GetProductsSerializer(serializers.ModelSerializer):
     name = serializers.CharField(source='product.name')
     productSlug = serializers.CharField(source='product.slug')
+    categoryName = serializers.CharField(source='product.category.name')
+    categorySlug = serializers.CharField(source='product.category.slug')
     price = serializers.IntegerField(source='product.price')
     oldPrice = serializers.IntegerField(source='product.old_price')
     colorSlug = serializers.CharField(source='color.slug')
@@ -22,6 +24,8 @@ class GetProductsSerializer(serializers.ModelSerializer):
         fields = (
             'name',
             'price',
+            'categoryName',
+            'categorySlug',
             'oldPrice',
             'colorSlug',
             'productSlug',
