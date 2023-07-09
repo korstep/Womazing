@@ -1,27 +1,34 @@
 <template>
-  <div v-if="getProductDetail" class="similar">
-    <div class="container">
-      <div class="similar__body">
-        <span class="paragraph">Связанные товары</span>
-        <swiper class="similar__slider" :slides-per-view="3" @swiper="onSwiper">
-          <swiper-slide
-            v-for="product in getProductDetail.similar"
-            :key="product.productSlug"
-            class="similar__item"
+  <template v-if="getProductDetail && getProductDetail.similar.length">
+    <div class="similar">
+      <div class="container">
+        <div class="similar__body">
+          <span class="paragraph">Связанные товары</span>
+          <swiper
+            class="similar__slider"
+            :slides-per-view="3"
+            @swiper="onSwiper"
           >
-            <product-cart
-              :name="product.name"
-              :price="product.price"
-              :productSlug="product.productSlug"
-              :colorSlug="product.colorSlug"
-              :oldPrice="product.oldPrice"
-              :imagePath="product.image"
-            />
-          </swiper-slide>
-        </swiper>
+            <swiper-slide
+              v-for="product in getProductDetail.similar"
+              :key="product.productSlug"
+              class="similar__item"
+            >
+              <product-cart
+                :name="product.name"
+                :price="product.price"
+                :productSlug="product.productSlug"
+                :colorSlug="product.colorSlug"
+                :categorySlug="product.categorySlug"
+                :oldPrice="product.oldPrice"
+                :imagePath="product.image"
+              />
+            </swiper-slide>
+          </swiper>
+        </div>
       </div>
     </div>
-  </div>
+  </template>
 </template>
 <script>
 import { Swiper, SwiperSlide } from "swiper/vue"
