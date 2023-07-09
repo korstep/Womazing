@@ -11,6 +11,7 @@
             :price="product.price"
             :productSlug="product.productSlug"
             :colorSlug="product.colorSlug"
+            :categorySlug="product.categorySlug"
             :oldPrice="product.oldPrice"
             :imagePath="product.image"
           />

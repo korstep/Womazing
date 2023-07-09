@@ -10,6 +10,7 @@
             :price="product.price"
             :productSlug="product.productSlug"
             :colorSlug="product.colorSlug"
+            :categorySlug="product.categorySlug"
             :oldPrice="product.oldPrice"
             :imagePath="product.image"
           />
@@ -48,6 +49,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex"
 import ProductCart from "./ProductCart.vue"
+
 export default {
   components: {
     ProductCart,
@@ -58,11 +60,11 @@ export default {
       itemsPerPage: 9,
     }
   },
-  mounted: async function () {
-    await this.manageCatalog()
+  mounted() {
+    this.manageCatalog()
   },
   computed: {
-    ...mapGetters(["getCatalog"]),
+    ...mapGetters(["getCatalog", "getCategories"]),
     paginatedCatalog() {
       const start = (this.currentPage - 1) * this.itemsPerPage
       const end = start + this.itemsPerPage
@@ -75,8 +77,13 @@ export default {
       const end = this.currentPage * this.itemsPerPage
       return Math.min(end, this.getCatalog.length)
     },
+    currentCategory() {
+      return this.$route.params.category
+    },
+    isStorePage() {
+      return this.$route.name === "store"
+    },
   },
-
   methods: {
     ...mapActions(["createCatalogCategory", "createCatalog"]),
     goToNextPage() {
@@ -93,19 +100,22 @@ export default {
       }
     },
     async manageCatalog() {
-      if (this.$route.name == "store") {
+      if (this.isStorePage) {
         await this.createCatalog()
       } else {
         await this.createCatalogCategory({
-          category: this.$route.params.category,
+          category: this.currentCategory,
           sortBy: "",
         })
       }
     },
   },
   watch: {
-    "$route.params.category": async function () {
-      this.manageCatalog()
+    "$route.params.category"(newCategory, oldCategory) {
+      if (newCategory !== oldCategory) {
+        this.currentPage = 1
+        this.manageCatalog()
+      }
     },
   },
 }

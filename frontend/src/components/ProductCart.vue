@@ -10,7 +10,11 @@
       <router-link
         :to="{
           name: 'product',
-          params: { productSlug: productSlug, colorSlug: colorSlug },
+          params: {
+            category: categorySlug,
+            productSlug: productSlug,
+            colorSlug: colorSlug,
+          },
         }"
         class="product-cart__name"
         >{{ name }}</router-link
@@ -34,6 +38,7 @@ export default {
     oldPrice: { type: Number, required: false, default: null },
     productSlug: { type: String, required: true },
     colorSlug: { type: String, required: true },
+    categorySlug: { type: String, required: true },
     imagePath: { type: String, required: true },
   },
   computed: {
@@ -46,7 +51,11 @@ export default {
     redirectToProductPage() {
       this.$router.push({
         name: "product",
-        params: { productSlug: this.productSlug, colorSlug: this.colorSlug },
+        params: {
+          category: this.categorySlug,
+          productSlug: this.productSlug,
+          colorSlug: this.colorSlug,
+        },
       })
     },
   },
