@@ -3,9 +3,8 @@
     <div class="container">
       <div class="categories__body">
         <router-link
-          @click="createCatalog()"
           class="categories__category"
-          :class="{ categories__category_selected: isCategoryPage }"
+          :class="{ categories__category_selected: !isCategoryPage }"
           :to="{ name: 'store' }"
           >Все</router-link
         >
@@ -25,27 +24,37 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapActions } from "vuex"
+import { mapGetters } from "vuex"
 
 export default {
-  computed: {
-    ...mapGetters(["getCategories"]),
-    isCategoryPage() {
-      return this.$router.name !== "store" && !this.$route.params.category
-    },
-  },
   data() {
     return {}
   },
+  mounted() {},
+  computed: {
+    ...mapGetters(["getCategories"]),
+    getRouteCategory() {
+      return this.$route.params.category ? this.$route.params.category : false
+    },
+    isCategoryPage() {
+      return this.getRouteCategory
+    },
+  },
   methods: {
-    ...mapActions(["createCatalog", "createCatalogCategory"]),
+    getCategoryNameOnSlug(slug) {
+      return this.getCategories.find((item) => item.slug === slug).name
+    },
+    isCategoryExist(category) {
+      return this.getCategories && category in this.getCategories
+    },
     changeCategory(category) {
-      this.createCatalogCategory({ category: category, sortBy: "" })
+      this.$router.push({ name: "category", params: { category: category } })
     },
     isCategorySelected(category) {
       return this.$route.params.category === category
     },
   },
+  watch: {},
 }
 </script>
 <style lang="scss">

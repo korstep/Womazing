@@ -5,7 +5,7 @@
 <script>
 import ProductDetail from "@/components/ProductDetail.vue"
 import ProductsSimilar from "@/components/ProductsSimilar.vue"
-import { mapActions } from "vuex"
+import { mapActions, mapGetters } from "vuex"
 export default {
   components: { ProductDetail, ProductsSimilar },
   data() {
@@ -15,6 +15,7 @@ export default {
     await this.createProductDetail(this.getContext)
   },
   computed: {
+    ...mapGetters(["getProductDetail"]),
     getColorSlug() {
       return this.$route.params.colorSlug
     },
@@ -33,17 +34,18 @@ export default {
   },
   watch: {
     "$route.params": {
-      handler: function (newParams, oldParams) {
+      handler: async function (newParams, oldParams) {
         const newProductSlug = newParams.productSlug
         const newColorSlug = newParams.colorSlug
         const oldProductSlug = oldParams.productSlug
         const oldColorSlug = oldParams.colorSlug
 
         if (
-          newProductSlug !== oldProductSlug ||
-          newColorSlug !== oldColorSlug
+          newProductSlug &&
+          newColorSlug &&
+          (newProductSlug !== oldProductSlug || newColorSlug !== oldColorSlug)
         ) {
-          this.createProductDetail(this.getContext)
+          await this.createProductDetail(this.getContext)
         }
       },
       deep: true,

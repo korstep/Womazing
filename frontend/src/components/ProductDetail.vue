@@ -57,14 +57,14 @@
               />
             </div>
           </div>
-          <button
+          <router-link
+            :to="{ name: 'cart' }"
             v-if="this.isCurrentProductInCart"
-            @click="this.$router.push({ name: 'cart' })"
             type="button"
             class="detail__btn detail__btn_gray"
           >
             Уже в корзине
-          </button>
+          </router-link>
           <button
             v-else
             @click="addToCartHandler()"
@@ -96,7 +96,12 @@ export default {
   },
   created() {},
   computed: {
-    ...mapGetters(["getProductDetail", "getBackendBaseUrl", "getCart"]),
+    ...mapGetters([
+      "getProductDetail",
+      "getBackendBaseUrl",
+      "getCart",
+      "getCategories",
+    ]),
     getCurrentColor() {
       return this.$route.params.colorSlug
     },
@@ -113,7 +118,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["createProductDetail", "addItemToCart"]),
+    ...mapActions(["addItemToCart"]),
 
     async addToCartHandler() {
       if (!this.selectedSize) {

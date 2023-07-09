@@ -2,20 +2,15 @@
   <TheModal v-if="getShowCallback"> <ModalCallback /></TheModal>
   <div class="wrapper">
     <the-header />
-    <main class="main">
-      <bread-crumbs v-if="shouldShowComponent" />
-      <router-view />
-    </main>
+    <router-view />
     <the-footer />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from "vuex"
-
 import TheHeader from "@/components/TheHeader.vue"
 import TheFooter from "@/components/TheFooter.vue"
-import BreadCrumbs from "@/components/BreadCrumbs.vue"
 import TheModal from "@/components/TheModal.vue"
 import ModalCallback from "@/components/ModalCallback.vue"
 
@@ -24,19 +19,15 @@ export default {
   components: {
     TheHeader,
     TheFooter,
-    BreadCrumbs,
     TheModal,
     ModalCallback,
   },
   computed: {
     ...mapGetters(["getCategories", "getCart", "getShowCallback"]),
-    shouldShowComponent() {
-      return this.$route.name !== "home" && this.$route.name !== "not-found"
-    },
   },
   created: async function () {
     await this.createCategories()
-    await this.createCartMethod()
+    this.createCartMethod()
   },
 
   methods: {
