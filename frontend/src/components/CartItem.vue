@@ -22,6 +22,9 @@
         </div>
         <div class="prices">
           <span class="cart-item__price">${{ item.price }}</span>
+          <span v-if="item.oldPrice" class="cart-item__old-price"
+            >${{ item.oldPrice }}</span
+          >
         </div>
         <div class="amount">
           <img
@@ -124,7 +127,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: start;
-    row-gap: 10px;
+    row-gap: 5px;
   }
   &__name {
     @include text;
@@ -141,10 +144,15 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    row-gap: 10px;
+    row-gap: 5px;
   }
   &__price {
     @include text;
+  }
+  &__old-price {
+    @include text-small;
+    color: #9c9c9c;
+    text-decoration: line-through;
   }
   .amount {
     display: flex;
@@ -175,6 +183,7 @@ export default {
     cursor: default;
   }
   .total {
+    @include text;
     display: flex;
     align-items: center;
   }
