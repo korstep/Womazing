@@ -12,11 +12,22 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex"
+import { mapGetters, mapMutations } from "vuex"
 
 export default {
   computed: {
     ...mapGetters(["getTotal"]),
+  },
+  methods: {
+    ...mapMutations(["setTotal"]),
+  },
+  watch: {
+    getCart: {
+      handler() {
+        this.setTotal()
+      },
+      deep: true,
+    },
   },
 }
 </script>

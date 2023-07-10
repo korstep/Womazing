@@ -37,8 +37,6 @@ export default {
       if (localStorage.getItem("cart")) {
         const cartData = JSON.parse(localStorage.getItem("cart"))
         this.createCart(cartData)
-      } else {
-        localStorage.setItem("cart", JSON.stringify(this.getCart))
       }
     },
   },

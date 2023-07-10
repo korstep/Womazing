@@ -21,7 +21,7 @@
           </div>
         </div>
         <div class="prices">
-          <span class="cart-item__price">${{ item.price }}</span>
+          <span class="cart-item__price">${{ computePrice }}</span>
           <span v-if="item.oldPrice" class="cart-item__old-price"
             >${{ item.oldPrice }}</span
           >
@@ -64,9 +64,17 @@ export default {
   },
   mounted() {},
   computed: {
-    ...mapGetters(["getBackendBaseUrl", "getBackendUrl"]),
+    ...mapGetters(["getBackendBaseUrl", "getBackendUrl", "getCoupon"]),
+    computePrice() {
+      if (this.getCoupon) {
+        return (
+          this.item.price - (this.item.price / 100) * this.getCoupon.discount
+        )
+      }
+      return this.item.price
+    },
     computeTotalPrice() {
-      return this.item.price * this.item.quantity
+      return this.computePrice * this.item.quantity
     },
     getProductContext() {
       return {

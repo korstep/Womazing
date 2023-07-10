@@ -9,7 +9,7 @@
   </template>
 </template>
 <script>
-import { mapGetters, mapMutations } from "vuex"
+import { mapGetters } from "vuex"
 import CartItems from "@/components/CartItems"
 import CartEmpty from "@/components/CartEmpty"
 import CartTotal from "@/components/CartTotal.vue"
@@ -18,19 +18,9 @@ export default {
   components: { CartItems, CartEmpty, CartTotal, CartCoupon },
   created() {},
   computed: {
-    ...mapGetters(["getCart"]),
+    ...mapGetters(["getCart", "getCoupon"]),
   },
-  methods: {
-    ...mapMutations(["setTotal"]),
-  },
-  watch: {
-    getCart: {
-      handler() {
-        this.setTotal()
-      },
-      deep: true,
-    },
-  },
+  watch: {},
 }
 </script>
 <style lang="scss"></style>

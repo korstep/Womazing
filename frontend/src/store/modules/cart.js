@@ -1,6 +1,19 @@
 import axios from "axios"
 export default {
   actions: {
+    async applyCoupon({ getters, commit }, coupon) {
+      try {
+        const response = await axios.get(
+          `${getters.getBackendUrl}v1/coupon/${coupon}/`
+        )
+        commit("setCoupon", response.data)
+      } catch (error) {
+        if (error.response) {
+          const errorMessage = error.response.data.message
+          return errorMessage
+        }
+      }
+    },
     async addItemToCart({ getters, commit }, context) {
       const { productSlug, colorSlug, size } = context
       const response = await axios
@@ -16,9 +29,11 @@ export default {
   },
   state: {
     cart: [],
+    coupon: null,
     total: 0,
   },
   getters: {
+    getCoupon: (state) => state.coupon,
     getTotal: (state) => state.total,
     getCart: (state) => state.cart,
     isItemInCart: (state) => (context) => {
@@ -32,10 +47,20 @@ export default {
     },
   },
   mutations: {
+    resetCoupon(state) {
+      state.coupon = null
+    },
+    setCoupon(state, couponObj) {
+      state.coupon = couponObj
+    },
     setTotal(state) {
       state.total = state.cart.reduce(
         (accumulator, current) =>
-          accumulator + current.price * current.quantity,
+          accumulator +
+          (current.price -
+            (current.price / 100) *
+              (state.coupon ? state.coupon.discount : 0)) *
+            current.quantity,
         0
       )
     },
