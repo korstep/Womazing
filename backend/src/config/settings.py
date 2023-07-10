@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.store.apps.StoreConfig',
+    'apps.coupon.apps.CouponConfig',
     'rest_framework',
     'corsheaders',
 ]
