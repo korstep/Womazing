@@ -40,3 +40,6 @@ npm instal
 ```sh
 npm run serve
 ```
+## Source
+
+figma temlate - https://www.figma.com/file/OFNh7sSivQKwPRV4hBv8Yi/WOMAZING-%2B?type=design&node-id=5%3A58&mode=dev
