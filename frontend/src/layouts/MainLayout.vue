@@ -1,10 +1,16 @@
 <template>
   <main class="main">
+    <BreadCrumbs />
     <router-view></router-view>
   </main>
 </template>
 <script>
-export default {}
+import BreadCrumbs from "@/components/BreadCrumbs.vue"
+export default {
+  components: {
+    BreadCrumbs,
+  },
+}
 </script>
 <style lang="scss">
 .main {
