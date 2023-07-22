@@ -1,21 +1,15 @@
 <template>
-  <div class="cart-empty">
+  <section class="cart-empty">
     <div class="cart-empty__body">
       <h1 class="cart-empty__title">Корзина пустая</h1>
-      <span @click="goToStore()" class="cart-empty__subtitle"
-        >ПЕРЕЙТИ В МАГАЗИН</span
+      <router-link :to="{name: 'store'}" class="cart-empty__subtitle"
+        >ПЕРЕЙТИ В МАГАЗИН</router-link
       >
     </div>
-  </div>
+  </section>
 </template>
 <script>
-export default {
-  methods: {
-    goToStore() {
-      this.$router.push({ name: "store" })
-    },
-  },
-}
+export default {}
 </script>
 <style lang="scss">
 .cart-empty {
@@ -33,8 +27,8 @@ export default {
     @include heading-h1;
   }
   &__subtitle {
-    cursor: pointer;
     @include text-large;
+    cursor: pointer;
     color: #998e78;
     transition: color 0.5s ease;
   }

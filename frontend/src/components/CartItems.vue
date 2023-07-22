@@ -1,12 +1,12 @@
 <template>
-  <div class="cart">
+  <section class="cart">
     <div class="container">
       <div class="cart__body">
         <div class="cart__columns">
-          <div class="product">Товар</div>
-          <div class="prices">Цена</div>
-          <div class="amount">Количество</div>
-          <div class="total">Всего</div>
+          <h4 class="product">Товар</h4>
+          <h4 class="prices">Цена</h4>
+          <h4 class="amount">Количество</h4>
+          <h4 class="total">Всего</h4>
         </div>
         <div class="cart__items">
           <CartItem
@@ -17,7 +17,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 <script>
 import { mapGetters } from "vuex"

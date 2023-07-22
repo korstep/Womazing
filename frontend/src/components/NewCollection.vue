@@ -1,5 +1,5 @@
 <template>
-  <div id="novelty" class="novelty">
+  <section id="novelty" class="novelty">
     <div class="container">
       <div class="novelty__body">
         <h2 class="novelty__title">Новая коллекция</h2>
@@ -21,7 +21,7 @@
         >
       </div>
     </div>
-  </div>
+  </section>
 </template>
 <script>
 import axios from "axios"

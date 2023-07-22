@@ -1,5 +1,5 @@
 <template>
-  <div class="contacts">
+  <section class="contacts">
     <div class="container">
       <div class="contacts__body">
         <div class="contacts__item">
@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 <script>
 export default {}

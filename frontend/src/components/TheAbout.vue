@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <section class="about">
     <div class="container">
       <div class="about__body">
         <div class="about__history">
@@ -57,7 +57,7 @@
         >
       </div>
     </div>
-  </div>
+  </section>
 </template>
 <script>
 export default {}

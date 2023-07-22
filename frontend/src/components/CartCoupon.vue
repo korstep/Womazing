@@ -1,5 +1,5 @@
 <template>
-  <div class="coupon">
+  <section class="coupon">
     <div class="container">
       <form class="coupon__form" @submit.prevent="applyCouponHandler">
         <div class="coupon__group">
@@ -30,7 +30,7 @@
         </button>
       </form>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

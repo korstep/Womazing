@@ -1,13 +1,13 @@
 <template>
   <template v-if="getCrumbs && getCrumbs.length > 1">
-    <div class="crumbs">
+    <section class="crumbs">
       <div class="container">
         <div class="crumbs__body">
-          <span
+          <h1
             class="crumbs__current"
             v-if="getLastCrumb && getCrumbTitle(getLastCrumb)"
-            >{{ getCrumbTitle(getLastCrumb) }}</span
-          >
+            >{{ getCrumbTitle(getLastCrumb) }}
+          </h1>
           <ul class="crumbs__crumbs">
             <li
               v-for="(crumb, index) in getCrumbs"
@@ -28,7 +28,7 @@
           </ul>
         </div>
       </div>
-    </div>
+    </section>
   </template>
 </template>
 <script>

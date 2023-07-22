@@ -1,15 +1,15 @@
 <template>
-  <div class="total">
+  <section class="total">
     <div class="container">
       <div class="total__body">
-        <div class="total__total">
+        <h3 class="total__total">
           <span>Итого:</span>
           <span>${{ getTotal }}</span>
-        </div>
+        </h3>
         <button class="total__button">Оформить заказ</button>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 <script>
 import { mapGetters, mapMutations } from "vuex"

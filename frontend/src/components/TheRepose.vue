@@ -1,5 +1,5 @@
 <template>
-  <div class="repose">
+  <section class="repose">
     <div class="container">
       <div class="repose__body">
         <swiper
@@ -19,11 +19,11 @@
         >
           <swiper-slide v-for="index in 3" :key="index" class="repose__slide">
             <div class="repose__text">
-              <span class="repose__title">Новые поступления в этом сезоне</span>
+              <h1 class="repose__title">Новые поступления в этом сезоне</h1>
               <div class="repose__text-limiter">
-                <span class="repose__subtitle"
+                <p class="repose__subtitle"
                   >Утонченные сочетания и бархатные оттенки - вот то, что вы
-                  искали в этом сезоне. Время исследовать.</span
+                  искали в этом сезоне. Время исследовать.</p
                 >
                 <div class="repose__buttons">
                   <a href="#new-colections">
@@ -45,7 +45,7 @@
         </swiper>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 <script>
 import { Swiper, SwiperSlide } from "swiper/vue"

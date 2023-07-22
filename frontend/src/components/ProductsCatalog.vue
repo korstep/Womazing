@@ -1,5 +1,5 @@
 <template>
-  <div class="catalog">
+  <section class="catalog">
     <div class="container">
       <div v-if="getCatalog" class="catalog__body">
         <section v-if="getCatalog" class="products">
@@ -44,7 +44,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex"
@@ -154,7 +154,6 @@ export default {
     background-color: #fff;
     border: 1px solid #000;
     transition: background-color 0.5s ease;
-    // transition: color 0.5s ease;
   }
   &__page_active {
     display: flex;

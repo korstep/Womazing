@@ -1,5 +1,5 @@
 <template>
-  <div class="writeus">
+  <section class="writeus">
     <div class="container">
       <div class="writeus__body">
         <h3 class="writeus__title">Напишите нам</h3>
@@ -13,7 +13,7 @@
         </TheForm>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
