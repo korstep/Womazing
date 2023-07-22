@@ -1,5 +1,5 @@
 <template>
-  <div class="detail">
+  <section class="detail">
     <div class="container">
       <div v-if="this.getProductDetail" class="detail__body">
         <swiper class="detail__slider" :slides-per-view="1" @swiper="onSwiper">
@@ -11,13 +11,13 @@
         </swiper>
         <div class="detail__detail">
           <div class="detail__prices">
-            <span class="detail__price"
-              >${{ this.getProductDetail.price }}</span
+            <h2 class="detail__price"
+              >${{ this.getProductDetail.price }}</h2
             >
-            <span
+            <h3
               v-if="this.getProductDetail.oldPrice"
               class="detail__old-price"
-              >${{ this.getProductDetail.oldPrice }}</span
+              >${{ this.getProductDetail.oldPrice }}</h3
             >
           </div>
           <div id="sizes" class="detail__options">
@@ -42,7 +42,7 @@
             >
           </div>
           <div class="detail__options">
-            <span class="detail__text">Выберите цвет</span>
+            <h4 class="detail__text">Выберите цвет</h4>
             <div
               @click="selectColor(color.slug)"
               v-for="color in this.getProductDetail.colors"
@@ -76,7 +76,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex"

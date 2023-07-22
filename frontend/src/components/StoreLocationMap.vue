@@ -1,5 +1,5 @@
 <template>
-  <div class="map">
+  <section class="map">
     <div class="container">
       <div class="map__body">
         <iframe
@@ -13,7 +13,7 @@
         ></iframe>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 <script>
 export default {}

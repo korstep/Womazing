@@ -1,14 +1,14 @@
 <template>
-  <div class="sorting">
+  <section class="sorting">
     <div class="container">
       <div class="sorting__body">
         <div class="sort-by sorting__item">
-          <span @click="toggleSort()" class="sorting__title"
+          <h4 @click="toggleSort()" class="sorting__title"
             >Сортировать по<img
               class="sorting__img"
               src="@/assets/media/icons/expand-more.svg"
               alt=""
-          /></span>
+          /></h4>
           <ul class="sorting__select" v-show="isSortByOpen">
             <li
               class="sorting__option-container"
@@ -33,7 +33,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

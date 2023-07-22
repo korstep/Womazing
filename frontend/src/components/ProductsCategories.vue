@@ -1,5 +1,5 @@
 <template>
-  <div class="categories">
+  <section class="categories">
     <div class="container">
       <div class="categories__body">
         <router-link
@@ -21,7 +21,7 @@
         >
       </div>
     </div>
-  </div>
+  </section>
 </template>
 <script>
 import { mapGetters } from "vuex"
@@ -74,7 +74,7 @@ export default {
     padding: 20px 0;
     width: calc(
       (100% - 3 * 10px) / 4
-    ); // Расчет ширины с учетом 4 промежутков по 10px
+    );
     border: 1px solid #000000;
   }
 

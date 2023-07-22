@@ -1,5 +1,5 @@
 <template>
-  <div class="product-cart">
+  <article class="product-cart">
     <div @click="redirectToProductPage()" class="product-cart__image">
       <img class="product-cart__image-img" :src="getImageUrl()" alt="" />
       <div class="product-cart__image-hover">
@@ -26,7 +26,7 @@
         <span class="product-cart__curr-price">${{ price }}</span>
       </div>
     </div>
-  </div>
+  </article>
 </template>
 <script>
 import { mapGetters } from "vuex"

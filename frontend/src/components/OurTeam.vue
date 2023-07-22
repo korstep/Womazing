@@ -1,5 +1,5 @@
 <template>
-  <div class="team">
+  <section class="team">
     <div class="container">
       <div class="team__body">
         <h2 class="paragraph team__title">Команда мечты Womazing</h2>
@@ -64,7 +64,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 <script>
 import { Swiper, SwiperSlide } from "swiper/vue"

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="item" class="cart-item">
+  <article v-if="item" class="cart-item">
     <div class="container">
       <div class="cart-item__body">
         <div class="product">
@@ -51,7 +51,7 @@
         <div class="total">${{ computeTotalPrice }}</div>
       </div>
     </div>
-  </div>
+  </article>
 </template>
 <script>
 import { mapGetters, mapMutations } from "vuex"

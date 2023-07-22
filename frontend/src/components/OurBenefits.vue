@@ -1,5 +1,5 @@
 <template>
-  <div class="benefits">
+  <section class="benefits">
     <div class="container">
       <div class="benefits__body">
         <h2 class="benefits__title">Что для нас важно</h2>
@@ -43,7 +43,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 <script>
 export default {}

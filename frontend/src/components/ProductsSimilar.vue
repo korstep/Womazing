@@ -1,9 +1,9 @@
 <template>
   <template v-if="getProductDetail && getProductDetail.similar.length">
-    <div class="similar">
+    <section class="similar">
       <div class="container">
         <div class="similar__body">
-          <span class="paragraph">Связанные товары</span>
+          <h2 class="paragraph">Связанные товары</h2>
           <swiper
             class="similar__slider"
             :slides-per-view="3"
@@ -27,7 +27,7 @@
           </swiper>
         </div>
       </div>
-    </div>
+    </section>
   </template>
 </template>
 <script>
